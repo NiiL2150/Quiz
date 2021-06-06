@@ -49,23 +49,17 @@ namespace Quiz
         {
             Name = "Unnamed";
             Password = "qwertyqwerty";
-            Birthday = Convert.ToDateTime("02.09.2005");
+            Birthday = Convert.ToDateTime("01.01.1990");
         }
 
-        public void AddQuiz(Topic topic)
+        public void AddQuiz(Topic topic, string str)
         {
-            Quiz quiz = new Quiz();
+            Quiz quiz = new Quiz(str);
             topic.Quizzes.Add(quiz);
         }
 
-        public void DeleteQuiz(Topic topic)
+        public void DeleteQuiz(Topic topic, int pos)
         {
-            int i = 0;
-            foreach (var item in topic.Quizzes)
-            {
-                Console.WriteLine($"{i++}. ");
-            }
-            int pos = Int32.Parse(Console.ReadLine());
             topic.Quizzes.RemoveAt(--pos);
         }
 

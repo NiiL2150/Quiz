@@ -10,7 +10,7 @@ namespace Quiz
     {
         void AddTopic(List<Topic> topics, string name);
         void DeleteTopic(List<Topic> topics, int pos);
-        void AddQuiz(Topic topic);
-        void DeleteQuiz(Topic topic);
+        void AddQuiz(Topic topic, string str);
+        void DeleteQuiz(Topic topic, int pos);
     }
 }

@@ -80,9 +80,26 @@ namespace Quiz
             try
             {
                 if (Topics.Count == 0) throw new NoElementsException();
-                while (true)
+                Console.WriteLine("Choose topic to participate in (0 for exiting, -1 for Recent): ");
+                int i = 0, ch;
+                foreach (var item in Global.Topics)
+                {
+                    Console.WriteLine($"{++i}. {item.Title} - {item.Quizzes.Count}");
+                }
+                ch = Int32.Parse(Console.ReadLine());
+                if (ch == -1)
                 {
                     Console.Clear();
+                    Console.WriteLine("Recent: ");
+                    foreach (var item in user.Recent)
+                    {
+                        Console.WriteLine(item);
+                    }
+                    Console.ReadKey();
+                }
+                else if(ch>0 && ch <= Topics.Count)
+                {
+                    Topics[--ch].Open(user);
                 }
             }
             catch (NoElementsException ex)
@@ -90,12 +107,18 @@ namespace Quiz
                 Console.WriteLine(ex.Message);
                 Console.ReadKey();
             }
+            catch (Exception)
+            {
+                Console.Clear();
+                Console.WriteLine("Error");
+                Console.ReadKey();
+            }
         }
 
         static public void AdminTable(Admin admin)
         {
             Console.Clear();
-            Console.WriteLine("0. For adding and deleting");
+            Console.WriteLine("0. For adding and deleting, -1 for exit");
             int i = 0;
             foreach (var item in Global.Topics)
             {
@@ -108,7 +131,7 @@ namespace Quiz
                 {
                     Console.Clear();
                     i = 0;
-                    Console.WriteLine("0. Add new, others for deletion");
+                    Console.WriteLine("0. Add new, -1 for exit, others for deletion");
                     foreach (var item in Global.Topics)
                     {
                         Console.WriteLine($"{++i}. {item.Title} - {item.Quizzes.Count}");
@@ -116,13 +139,19 @@ namespace Quiz
                     i = Int32.Parse(Console.ReadLine());
                     if (i == 0)
                     {
+                        Console.Clear();
+                        Console.WriteLine("New topic name: ");
                         string str2 = Console.ReadLine();
                         admin.AddTopic(Global.Topics, str2);
                     }
-                    else
+                    else if(i!=-1)
                     {
                         admin.DeleteTopic(Global.Topics, i);
                     }
+                }
+                else if (ch != -1)
+                {
+                    Global.Topics[--ch].Open(admin);
                 }
             }
             catch (Exception)

@@ -16,5 +16,43 @@ namespace Quiz
             Quizzes = new List<Quiz>();
         }
         public Topic() : this("Unnamed") { }
+        public void Open(Admin admin)
+        {
+            Console.Clear();
+            Console.WriteLine("0. For adding, -1 for exiting, others for deleting");
+            int i = 0;
+            foreach (var item in Quizzes)
+            {
+                Console.WriteLine($"{++i}. {item.Title}");
+            }
+            int ch = Int32.Parse(Console.ReadLine());
+            if (ch == 0)
+            {
+                Console.Clear();
+                Console.WriteLine("Quiz name: ");
+                string tmpstr = Console.ReadLine();
+                admin.AddQuiz(this, tmpstr);
+            }
+            else if (ch != -1)
+            {
+                admin.DeleteQuiz(this, ch);
+            }
+        }
+
+        public void Open(User user)
+        {
+            Console.Clear();
+            Console.WriteLine("0. For exiting, others for doing tests");
+            int i = 0;
+            foreach (var item in Quizzes)
+            {
+                Console.WriteLine($"{++i}. {item.Title}");
+            }
+            int ch = Int32.Parse(Console.ReadLine());
+            if (ch > 0 && ch <= Quizzes.Count)
+            {
+                Quizzes[--ch].Start(user);
+            }
+        }
     }
 }
