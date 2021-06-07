@@ -71,7 +71,7 @@ namespace Quiz
                     int r = 0;
                     for (int i = 0; i < item.RightAnswers.Count; i++)
                     {
-                        if(item.RightAnswers[i] == rights.Count)
+                        if(item.RightAnswers[i] == rights[i])
                         {
                             r++;
                         }
