@@ -86,6 +86,7 @@ namespace Quiz
             user.Recent.Insert(0, right >= 10 ? $"{right}/10 - {Title}" : $"0{right}/10 - {Title}");
             Top20.Add(right >= 10 ? $"{right}/10 - {user.Name}" : $"0{right}/10 - {user.Name}");
             Top20.Sort();
+            Top20.Reverse();
             if (Top20.Count > 20)
             {
                 Top20.RemoveAt(20);
